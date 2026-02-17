@@ -1,7 +1,7 @@
-# deploy_vcn_in_oci
+# Use OCI session token to authenticate
 ## deploy a VCN in OCI using Terraform from github action with oci backend and session token
 
-The code demonstrate how to manage OCI resources with Terraform from Github Actions. 
+The code demonstrate how to manage OCI resources with Terraform from Github Actions using session token
 
 It uses:
 - [Security Token Authentication](https://docs.oracle.com/en-us/iaas/Content/dev/terraform/configuring.htm#security-token-auth)
