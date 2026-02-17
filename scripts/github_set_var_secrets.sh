@@ -41,7 +41,7 @@ python3 get_token.py $profile
 chmod 700 set_token.sh
 echo "run set_token.sh"
 . set_token.sh
-
+rm set_token.sh
 
 echo "Set GH secrets"
 

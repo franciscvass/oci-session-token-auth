@@ -15,24 +15,15 @@ The token will expired however after __exp_time__ minutes.
 
 - The script runs bash/shell commands. Ideally use an Unix environment
 - The terraform code will store the statefile in a bucket in tenancy. This bucket must exists.
-- In your Github repo you must create the Variables and Secrets (see below)
+- GitHub CLI (_gh_) installed and configured
 - Python3 and OCI CLI must be installed
 
 ## procedure to setup the secrets and vars automatically - if you have github cli installed
 
-1. Create the Secrets and Vars in github repo as you see below:
-
-- Secrets
-  
-<img width="980" height="376" alt="image" src="secrets.png" />
-
-- Vars
-
-- <img width="986" height="800" alt="image" src="vars.png" />
 
 - These can be updated/set automatically with a script (_scripts/github_set_var_secrets.sh_) if you have github CLI installed and you are authenticated to your github.
 
-2. If you install [github cli](https://cli.github.com) and you setup the authentication to you gitrepo then it becomes easy to setup the github secrets and github vars by running the script _github_set_var_secrets.sh_ as it shows below  
+1. If you have [github cli](https://cli.github.com) installed and you setup the authentication to your gitrepo then it becomes easy to setup the github secrets and github vars by running the script _github_set_var_secrets.sh_ as it shows below  
 
 - clone the repo
 - go to _script_ folder
@@ -79,16 +70,26 @@ The token will expired however after __exp_time__ minutes.
 - Provide the info to login and wait for script to finish
 - the above action it will add a config profile to your oci/config file under the profile you specify in _profile_
 
-3. The above script it will create a local file _set_token.sh_ which will contains info that will update the vars and secrets in your Github repo. __Do not share this file.__
+2. The above script it will create a local file _set_token.sh_ which will contains info that will update the vars and secrets in your Github repo. __Do not share this file.__
 
 4. Run the Action from your github repo 
 
 ## procedure to setup the secrets and vars manually - if you do not have github cli installed
 
+1. Create the Secrets and Vars in github repo as you see below:
+
+- Secrets
+  
+<img width="980" height="376" alt="image" src="secrets.png" />
+
+- Vars
+
+- <img width="986" height="800" alt="image" src="vars.png" />
+
 - If you don't have the github istalled or you are not authenticated to Github you must set the Vars ans Secrets manually
 
-1. Create the Vars and Secrtes as shown above
-2. Clone the github repo
+
+2. Get the variables and secrets
 
 - go to _scripts_ folder
 - Run _github_get_var_secrets.sh_ as shown below
