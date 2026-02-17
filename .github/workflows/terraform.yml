@@ -1,0 +1,66 @@
+
+name: Terraform - deploy VCN 
+
+on:
+  workflow_dispatch
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.12.0
+
+      - name: Write Config & Key Files
+        run: |
+          mkdir -p $HOME/.oci
+          
+          echo "${{ secrets.SES_TOKEN_PRV_KEY }}" | base64 -d > $HOME/.oci/priv_key_sec_token.pem
+          echo "${{ secrets.SES_TOKEN }}" | base64 -d > $HOME/.oci/sec_token
+          chmod 600 $HOME/.oci/priv_key_sec_token.pem $HOME/.oci/sec_token
+
+          cat > $HOME/.oci/config <<EOF
+          [DEFAULT]
+          fingerprint=${{ secrets.FINGERPRINT }}
+          key_file=$HOME/.oci/priv_key_sec_token.pem
+          security_token_file=$HOME/.oci/sec_token
+          region=eu-frankfurt-1
+          tenancy=${{ secrets.TENANCY_OCID }}
+          EOF
+
+      #- name: Upload Debug Files (Always)
+      #  uses: actions/upload-artifact@v4
+      #  with:
+      #    name: oci-upst-debug
+      #    path: |
+      #      /home/runner/.oci/config
+      #      /home/runner/.oci/priv_key_sec_token.pem
+      #      /home/runner/.oci/sec_token
+
+      - name: Terraform Init
+        run: terraform init -backend-config="bucket=${{ vars.TF_VAR_BUCKET }}" -backend-config="key=${{ vars.TF_VAR_KEY }}" -backend-config="namespace=${{ vars.TF_VAR_NAMESPACE }}" -backend-config="region=${{ vars.TF_VAR_REGION }}" 
+        working-directory: terraform/vcn
+        env:
+          TF_VAR_region: ${{ vars.TF_VAR_REGION }}
+          TF_VAR_compartment_id: ${{ vars.TF_VAR_COMPARTMENT_ID }}
+          
+      - name: Terraform Plan
+        run: terraform plan
+        working-directory: terraform/vcn
+        env:
+          TF_VAR_region: ${{ vars.TF_VAR_REGION }}
+          TF_VAR_compartment_id: ${{ vars.TF_VAR_COMPARTMENT_ID }}
+
+      - name: Terraform ${{ vars.TF_ACTION }}
+        run: terraform  ${{ vars.TF_ACTION }} -auto-approve
+        working-directory: terraform/vcn
+        env:
+          TF_VAR_region: ${{ vars.TF_VAR_REGION }}
+          TF_VAR_compartment_id: ${{ vars.TF_VAR_COMPARTMENT_ID }}
+        
