@@ -24,11 +24,11 @@ The token will expired however after __exp_time__ minutes.
 
 - Secrets
   
-<img width="980" height="376" alt="image" src="https://github.com/user-attachments/assets/7df2fde9-1303-402e-ba94-8638ed26d3c5" />
+<img width="980" height="376" alt="image" src="secrets.png" />
 
 - Vars
 
-- <img width="986" height="800" alt="image" src="https://github.com/user-attachments/assets/44e94ed2-b8f2-45d1-9c68-ad0cd587154b" />
+- <img width="986" height="800" alt="image" src="vars.png" />
 
 - These can be updated/set automatically with a script (_scripts/github_set_var_secrets.sh_) if you have github CLI installed and you are authenticated to your github.
 
