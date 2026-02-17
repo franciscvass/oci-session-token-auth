@@ -20,13 +20,6 @@ oci session authenticate --region $region --session-expiration-in-minutes $exp_t
 
 echo "export VARS"
 
-#export GITHUBREPO="franciscvass/deploy_vcn_in_oci"
-#export TF_ACTION="apply"
-#export TF_VAR_BUCKET="tfstate_bucket"
-#export TF_VAR_COMPARTMENT_ID="ocid1.compartment.oc1..aaaaaaaars7ft6qwfjeft6c2yo35copu7plbgvjyzooqcgqqb2l2negsww4q"
-#export TF_VAR_KEY="tfstate_4"
-#export TF_VAR_NAMESPACE="idjuatm1d4mr"
-
 export GITHUBREPO=$githubrepo
 export TF_ACTION=$tf_action
 export TF_VAR_BUCKET=$tf_var_bucket
